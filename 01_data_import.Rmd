@@ -1,5 +1,6 @@
 ---
 title: "Data Import"
+author: Madeline Sharp
 output: github_document
 ---
 
