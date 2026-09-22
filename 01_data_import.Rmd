@@ -7,6 +7,7 @@ This file is for doing data import.
 
 ``` {r}
 library(tidyverse)
+library(readxl)
 ```
 
 
@@ -73,7 +74,53 @@ skimr::skim(pups_df)
 ```
 
 
+
 ## Oh excel...
 
+Jenny Bryan made `readxl` to solve our problems.
+
 ```{r}
+mlb_df = 
+  read_excel("Data/mlb11.xlsx")
+```
+
+
+Look at the data!
+
+```{r}
+mlb_df
+```
+
+
+Load some LotR data
+
+```{r}
+lotr_df =
+  read_excel("Data/LotR_Words.xlsx")
+```
+
+
+Import FOTR words
+
+```{r}
+fotr_df =
+  read_excel(
+    "Data/LotR_words.xlsx",
+    range = "B3:D6"
+  )
+
+fotr_df
+```
+
+
+Import TT words
+
+```{r}
+tt_df =
+  read_excel(
+    "Data/LotR_words.xlsx",
+    range = "F3:H6"
+  )
+
+tt_df
 ```
