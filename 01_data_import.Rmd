@@ -9,3 +9,71 @@ This file is for doing data import.
 library(tidyverse)
 ```
 
+
+Import our first dataset.
+
+``` {r}
+litters_df = 
+  read_csv(
+    file = "Data/FAS_litters.csv", 
+    na = c("", "NA", ".")
+  )
+
+litters_df = janitor::clean_names(litters_df)
+
+litters_df
+```
+
+
+Import your second dataset.
+
+``` {r}
+pups_df = 
+  read_csv(
+    "Data/FAS_pups.csv", 
+    skip = 3,
+    na = c("", "NA", ".")
+  )
+
+pups_df = janitor::clean_names(pups_df)
+
+pups_df
+```
+
+
+
+# Look at the data frames
+
+```{r}
+litters_df
+pups_df
+```
+
+
+Head or tail
+
+```{r}
+head(litters_df, 20)
+
+tail(pups_df, 5)
+```
+
+
+Skimming??
+
+```{r}
+skimr::skim(pups_df)
+```
+
+
+Viewing?
+
+```{r}
+skimr::skim(pups_df)
+```
+
+
+#Oh excel...
+
+```{r}
+```
