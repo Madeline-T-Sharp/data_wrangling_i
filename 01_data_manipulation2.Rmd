@@ -2,7 +2,7 @@
 title: "01_data_manipulation2"
 author: "Madeline Sharp"
 date: "2026-09-29"
-output: html_document
+output: github_document
 ---
 
 This file is for doing data manipulation.
