@@ -114,3 +114,83 @@ litters_df =
     ## Caused by warning:
     ## ! `case_match()` was deprecated in dplyr 1.2.0.
     ## ℹ Please use `recode_values()` instead.
+
+## Deliberately untidy data
+
+``` r
+analysis_df =
+  tibble(
+    groups = c("treatment", "treatment", "placebo", "placebo"),
+    time = c("pre", "post", "pre", "post"),
+    mean_outcome = c(4, 8, 3.5, 4.6)
+  )
+```
+
+Let’s untidy this dataset for human readability
+
+``` r
+analysis_df |>
+  pivot_wider(
+    names_from = time, 
+    values_from = mean_outcome
+  ) |>
+  knitr::kable()
+```
+
+| groups    | pre | post |
+|:----------|----:|-----:|
+| treatment | 4.0 |  8.0 |
+| placebo   | 3.5 |  4.6 |
+
+## bind some rows
+
+first, import each LOTR movie table
+
+``` r
+fellowship_df =
+  readxl::read_excel("data/LotR_Words.xlsx", range = "B3:D6") |>
+  mutate(movie = "fellowship")
+
+two_towers_df =
+  readxl::read_excel("data/LotR_Words.xlsx", range = "F3:H6") |>
+  mutate(movie = "two towers")
+
+return_df =
+  readxl::read_excel("data/LotR_Words.xlsx", range = "J3:L6") |>
+  mutate(movie = "return of the king")
+```
+
+Next put all of these together and tidy.
+
+``` r
+bind_rows(fellowship_df,two_towers_df,return_df) |>
+  janitor::clean_names() |>
+  relocate(movie) |>
+  pivot_longer(
+    female:male,
+    names_to = "gender",
+    values_to = "words"
+  )
+```
+
+    ## # A tibble: 18 × 4
+    ##    movie              race   gender words
+    ##    <chr>              <chr>  <chr>  <dbl>
+    ##  1 fellowship         Elf    female  1229
+    ##  2 fellowship         Elf    male     971
+    ##  3 fellowship         Hobbit female    14
+    ##  4 fellowship         Hobbit male    3644
+    ##  5 fellowship         Man    female     0
+    ##  6 fellowship         Man    male    1995
+    ##  7 two towers         Elf    female   331
+    ##  8 two towers         Elf    male     513
+    ##  9 two towers         Hobbit female     0
+    ## 10 two towers         Hobbit male    2463
+    ## 11 two towers         Man    female   401
+    ## 12 two towers         Man    male    3589
+    ## 13 return of the king Elf    female   183
+    ## 14 return of the king Elf    male     510
+    ## 15 return of the king Hobbit female     2
+    ## 16 return of the king Hobbit male    2673
+    ## 17 return of the king Man    female   268
+    ## 18 return of the king Man    male    2459
